@@ -23,10 +23,21 @@ def BBANDS(data, ndays):
     return data
 
 
-# Retrieve the Nifty data from Yahoo finance:
-XSHE000002_data = st.get_csv_data('000002.XSHE', 'price')
+def get_lower_bb(stock_code, ndays):
+    stock_data = st.get_csv_data(stock_code, 'price')
+    bb = BBANDS(stock_data, ndays)
+    return bb['Lower BollingerBand']
 
-# Compute the Bollinger Bands for NIFTY using the 50-day Moving average
-n = 50
-NIFTY_BBANDS = BBANDS(XSHE000002_data, n)
-print(NIFTY_BBANDS)
+
+def get_upper_bb(stock_code, ndays):
+    stock_data = st.get_csv_data(stock_code, 'price')
+    bb = BBANDS(stock_data, ndays)
+    return bb['Upper BollingerBand']
+
+# # Retrieve the Nifty data from Yahoo finance:
+# XSHE000002_data = st.get_csv_data('000002.XSHE', 'price')
+#
+# # Compute the Bollinger Bands for NIFTY using the 50-day Moving average
+# n = 50
+# NIFTY_BBANDS = BBANDS(XSHE000002_data, n)
+# print(NIFTY_BBANDS)
