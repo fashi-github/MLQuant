@@ -104,4 +104,8 @@ venv.bak/
 # mypy
 .mypy_cache/
 
+# MAC 
+.DS_Store
+data/.DS_Store
+inspection/.DS_Store
 
