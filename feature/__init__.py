@@ -1,5 +1,5 @@
 
-from CCI import nifty_cci
+from CCI import get_cci
 
-cci = nifty_cci('000006.XSHE', 20)
+cci = get_cci('000006.XSHE', 20)
 print('000002.XSHE cci: \n', cci)

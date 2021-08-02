@@ -14,7 +14,7 @@ def CCI(data, ndays):
     return data
 
 
-def nifty_cci(stock_code, ndays):
+def get_cci(stock_code, ndays):
     stock_data = st.get_csv_data(stock_code, 'price')
     merged_data = CCI(stock_data, ndays)
     return merged_data['CCI']
