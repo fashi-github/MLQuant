@@ -21,18 +21,18 @@ def get_cci(stock_code, ndays):
 
 
 # XSHE000002_data = st.get_csv_data('000002.XSHE', 'price')
-
-# Compute the Commodity Channel Index(CCI) for NIFTY based on the 20-day Moving average
+#
+# # Compute the Commodity Channel Index(CCI) for NIFTY based on the 20-day Moving average
 # n = 20
 # NIFTY_CCI = CCI(XSHE000002_data, n)
 # CCI = NIFTY_CCI['CCI']
-
-# Plotting the Price Series chart and the Commodity Channel index below
+#
+# # Plotting the Price Series chart and the Commodity Channel index below
 # fig = plt.figure(figsize=(7, 5))
 # ax = fig.add_subplot(2, 1, 1)
 # ax.set_xticklabels([])
 # plt.plot(XSHE000002_data['close'], lw=1)
-# plt.title('NSE Price Chart')
+# plt.title('股票价格图表')
 # plt.ylabel('Close Price')
 # plt.grid(True)
 # bx = fig.add_subplot(2, 1, 2)
