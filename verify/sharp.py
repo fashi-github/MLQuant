@@ -10,7 +10,8 @@ test_y = glob.get_value(glob.TEST_Y)
 print(test_y.tail(10))
 # pred_y is array
 pred_y = glob.get_value(glob.PRED_Y)
-pred_index = 1
+# 因为在模型里面已经做了对齐，所以预测的索引就从零开始
+pred_index = 0
 profit_pct = pd.DataFrame()
 # profit_pct = pd.DataFrame({'percent': 0}, index=[1000])
 percent_index = 0
@@ -23,10 +24,11 @@ for i, close in test_y.items():
     # print('test_y size: ', test_y.size)
     if pred_y[pred_index] > close:
         # print('index: ', i, 'value: ', close, 'prev value:', test_y[i])
-        if i >= 4023:
+        if i >= 4024:
             break
+        # test_y[i + 1]就是close的下一天的收盘价格
         percent = (test_y[i + 1] - close) / close
-        print("predict right !!", percent)
+        # print("predict right !!", percent)
         # print("predict df !!", pd.DataFrame(
         #     {'percent': percent},
         #     index=[percent_index]))
@@ -38,9 +40,7 @@ for i, close in test_y.items():
         # percent_index = percent_index + 1
     pred_index = pred_index + 1
 
-print('percent list:', percent_array)
 profit_pct['percent'] = percent_array
-print(profit_pct)
 print('profit mean: ', profit_pct.mean())
 
 avg_return = profit_pct.mean()

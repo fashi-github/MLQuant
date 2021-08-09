@@ -24,7 +24,8 @@ def perform():
     train_x_size = int(float(total_x.shape[0]) * 0.7)
     train_y_size = int(float(total_y.shape[0]) * 0.7)
     train_x = total_x[0:train_x_size]
-    train_y = total_y[0:train_y_size]
+    # 下一天的收盘价，作为当天的预测结果
+    train_y = total_y[1:train_y_size + 1]
     print(total_x.shape)
     print(total_y.shape)
     print(train_x.shape)
@@ -44,15 +45,18 @@ def perform():
     # for params, mean_score, scores in model.cv_results_:
     #     print("%0.3f for %r" % (mean_score, params))
 
-    test_x = total_x[train_x_size + 1:total_x.shape[0]]
-    test_y = total_y[train_y_size + 1:total_y.shape[0]]
+    # 测试数据集合，也做结果和特征的对齐，最后一天的收盘价格，作为倒数第二天的结果
+    test_x = total_x[train_x_size + 1:total_x.shape[0] - 1]
+    test_y = total_y[train_y_size + 2:total_y.shape[0]]
     glob._init()
     glob.set_value(glob.TEST_Y, test_y)
     pred_y = model.predict(test_x)
-    print('pred_y\n', pred_y)
+    print('pred_y shape \n', pred_y.shape)
+    print('test_y shape \n', test_y.shape)
     glob.set_value(glob.PRED_Y, pred_y)
     print('R2 Score:', r2_score(test_y, pred_y))
     # df_result = pd.DataFrame(index=test_y.index)
     # df_result['True Value'] = test_y
     # df_result['Pred Value'] = pred_y
     # df_result.plot(figsize=(16, 9))
+

@@ -65,10 +65,11 @@ def get_csv_data(code, type):
                              total['date'].str.startswith('2018') |
                              total['date'].str.startswith('2019') |
                              total['date'].str.startswith('202')]
-        print(quality_data.head(10))
-        print(quality_data.tail(10))
-        print(quality_data.shape)
+        # print(quality_data.head(10))
+        # print(quality_data.tail(10))
+        # print(quality_data.shape)
         return quality_data
+
     else:
         print('NOT find ' + file_root)
         return None
