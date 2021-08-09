@@ -10,19 +10,19 @@ test_y = glob.get_value(glob.TEST_Y)
 print(test_y.tail(10))
 # pred_y is array
 pred_y = glob.get_value(glob.PRED_Y)
-j = 1
+pred_index = 1
 profit_pct = pd.DataFrame()
 # profit_pct = pd.DataFrame({'percent': 0}, index=[1000])
 percent_index = 0
 percent_array = list()
 for i, close in test_y.items():
-    print('pred_y', pred_y[j])
-    print('pred_y size: ', pred_y.size)
-    print('test_y size: ', test_y.size)
-    if j >= pred_y.size:
+    if pred_index >= pred_y.size:
         break
-    if pred_y[j] > close:
-        print('index: ', i, 'value: ', close, 'prev value:', test_y[i ])
+    # print('pred_y', pred_y[pred_index])
+    # print('pred_y size: ', pred_y.size)
+    # print('test_y size: ', test_y.size)
+    if pred_y[pred_index] > close:
+        # print('index: ', i, 'value: ', close, 'prev value:', test_y[i])
         if i >= 4023:
             break
         percent = (test_y[i + 1] - close) / close
@@ -33,9 +33,10 @@ for i, close in test_y.items():
         # profit_pct.append(pd.DataFrame(
         #     {'percent': percent},
         #     index=[percent_index]))
+        # if percent > 0:
         percent_array.append(percent)
         # percent_index = percent_index + 1
-    j = j + 1
+    pred_index = pred_index + 1
 
 print('percent list:', percent_array)
 profit_pct['percent'] = percent_array
