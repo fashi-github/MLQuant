@@ -58,7 +58,17 @@ def export_data(data, filename, type, mode=None):
 def get_csv_data(code, type):
     file_root = data_root + type + '/' + code + ".csv"
     if os.path.exists(file_root):
-        return pd.read_csv(file_root)
+        total = pd.read_csv(file_root)
+        # 因为2017年之前的数据，存在成交量为零的情况，
+        # 所以为了数据的高质量，从2017年开始获取数据。
+        quality_data = total[total['date'].str.startswith('2017') |
+                             total['date'].str.startswith('2018') |
+                             total['date'].str.startswith('2019') |
+                             total['date'].str.startswith('202')]
+        print(quality_data.head(10))
+        print(quality_data.tail(10))
+        print(quality_data.shape)
+        return quality_data
     else:
         print('NOT find ' + file_root)
         return None
