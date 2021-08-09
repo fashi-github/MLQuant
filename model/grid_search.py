@@ -20,8 +20,11 @@ def perform():
     model = GridSearchCV(Ridge(), tuned_parameters, cv=10)
     total_x = combinate_feature_utility.get_total_x()
     total_y = resultY.get_real_result('000002.XSHE')
-    train_x = total_x[0:3000]
-    train_y = total_y[0:3000]
+    # 取全量数据的前70%作为训练数据集合
+    train_x_size = int(float(total_x.shape[0]) * 0.7)
+    train_y_size = int(float(total_y.shape[0]) * 0.7)
+    train_x = total_x[0:train_x_size]
+    train_y = total_y[0:train_y_size]
     print(total_x.shape)
     print(total_y.shape)
     print(train_x.shape)
@@ -41,15 +44,15 @@ def perform():
     # for params, mean_score, scores in model.cv_results_:
     #     print("%0.3f for %r" % (mean_score, params))
 
-    test_x = total_x[3001:4025]
-    test_y = total_y[3001:4025]
+    test_x = total_x[train_x_size + 1:total_x.shape[0]]
+    test_y = total_y[train_y_size + 1:total_y.shape[0]]
     glob._init()
     glob.set_value(glob.TEST_Y, test_y)
     pred_y = model.predict(test_x)
-    print('pred_y', pred_y)
+    print('pred_y\n', pred_y)
     glob.set_value(glob.PRED_Y, pred_y)
     print('R2 Score:', r2_score(test_y, pred_y))
-    df_result = pd.DataFrame(index=test_y.index)
-    df_result['True Value'] = test_y
-    df_result['Pred Value'] = pred_y
-    df_result.plot(figsize=(16, 9))
+    # df_result = pd.DataFrame(index=test_y.index)
+    # df_result['True Value'] = test_y
+    # df_result['Pred Value'] = pred_y
+    # df_result.plot(figsize=(16, 9))
