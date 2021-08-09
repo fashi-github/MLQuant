@@ -17,9 +17,9 @@ def SMA(data, ndays):
 # Exponentially-weighted Moving Average
 def EWMA(data, ndays):
     EMA = pd.Series(pd.DataFrame.ewm(data['close'],
-                                      span=ndays,
-                                      min_periods=ndays - 1).mean(),
-                                      name='EWMA_' + str(ndays))
+                                     span=ndays,
+                                     min_periods=ndays - 1).mean(),
+                    name='EWMA')
     data = data.join(EMA)
     return data
 
@@ -37,9 +37,16 @@ def EWMA(data, ndays):
 
 def get_sma(stock_code, ndays):
     stock_data = st.get_csv_data(stock_code, 'price')
-    merged_data = SMA(stock_data, ndays)
-    merged_data = merged_data.dropna()
-    return merged_data['SMA']
+    sma_data = SMA(stock_data, ndays)
+    sma_data = sma_data.dropna()
+    return sma_data['SMA']
+
+
+def get_ewma(stock_code, ndays):
+    stock_data = st.get_csv_data(stock_code, 'price')
+    ewma_data = EWMA(stock_data, ndays)
+    ewma_data = ewma_data.dropna()
+    return ewma_data['EWMA']
 
 # Compute the 200-day EWMA for NIFTY
 # ew = 200
