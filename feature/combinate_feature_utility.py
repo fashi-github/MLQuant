@@ -13,6 +13,7 @@ stock_code = '000002.XSHE'
 def get_total_x():
     mix = get_cci(stock_code, 20)
     # print(cci.head(20))
+    # evm间隔性为空，14个为空接着若干个有数值。
     evm = get_evm(stock_code, 14)
     # print(evm.head(20))
     mix['evm'] = evm
@@ -30,3 +31,7 @@ def get_total_x():
     return total
     # mix = (pd.Series(cci, name='CCI')).join(pd.Series(evm, name='evm'))
     # print(mix)
+
+
+# evm = get_evm(stock_code, 14)
+# print(evm.head(50))
