@@ -68,7 +68,7 @@ def get_csv_data(code, type):
         # print(quality_data.head(10))
         # print(quality_data.tail(10))
         # print(quality_data.shape)
-        return quality_data
+        return total
 
     else:
         print('NOT find ' + file_root)
