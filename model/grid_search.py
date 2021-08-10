@@ -18,7 +18,7 @@ def perform():
         {'alpha': [1, 0.5, 0.1, 0.01, 0.001]}
     ]
     model = GridSearchCV(Ridge(), tuned_parameters, cv=10)
-    total_x = combinate_feature_utility.get_total_x()
+    total_x = combinate_feature_utility.get_total_x('000002.XSHE')
     total_y = resultY.get_real_result('000002.XSHE')
     # 取全量数据的前70%作为训练数据集合
     train_x_size = int(float(total_x.shape[0]) * 0.7)
