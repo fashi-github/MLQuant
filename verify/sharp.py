@@ -20,6 +20,8 @@ percent_array = list()
 big_increase_array = list()
 pred_cnt = 0
 big_increase_cnt = 0
+pred_big_increase_cnt = 0
+real_big_increase_cnt = 0
 for i, close in test_y.items():
     if pred_index >= pred_y.size:
         break
@@ -27,6 +29,7 @@ for i, close in test_y.items():
     # print('pred_y size: ', pred_y.size)
     # print('test_y size: ', test_y.size)
     if pred_y[pred_index] >= close * 1.05:
+        pred_big_increase_cnt = pred_big_increase_cnt + 1
         # print('index: ', i, 'value: ', close, 'prev value:', test_y[i])
         if i >= 4024:
             break
@@ -34,6 +37,7 @@ for i, close in test_y.items():
         percent = (test_y[i + 1] - close) / close
         if percent >= 0.05:
             big_increase_array.append(percent)
+            real_big_increase_cnt = real_big_increase_cnt + 1
         pred_cnt = pred_cnt + 1
         # print("predict right !!", percent)
         # if percent > 0:
@@ -57,6 +61,7 @@ avg_big_return = big_increase_pct.mean()
 std_big_return = big_increase_pct.std()
 print('Big Sharp: ', avg_big_return / std_big_return)
 print('big increase percent:\n', big_increase_pct)
+print('big increase correct percent:\n', real_big_increase_cnt / pred_big_increase_cnt)
 # for index, row in test_y.iterrows():
 #     print(index, row[''])
 
