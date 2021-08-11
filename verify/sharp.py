@@ -26,7 +26,7 @@ for i, close in test_y.items():
     # print('pred_y', pred_y[pred_index])
     # print('pred_y size: ', pred_y.size)
     # print('test_y size: ', test_y.size)
-    if pred_y[pred_index] > close:
+    if pred_y[pred_index] >= close * 1.05:
         # print('index: ', i, 'value: ', close, 'prev value:', test_y[i])
         if i >= 4024:
             break
@@ -56,6 +56,7 @@ print('Sharp: ', sharpe)
 avg_big_return = big_increase_pct.mean()
 std_big_return = big_increase_pct.std()
 print('Big Sharp: ', avg_big_return / std_big_return)
+print('big increase percent:\n', big_increase_pct)
 # for index, row in test_y.iterrows():
 #     print(index, row[''])
 
