@@ -1,4 +1,5 @@
 # Load the necessary packages and modules
+import numpy as np
 import pandas as pd
 import data.stock as st
 import matplotlib.pyplot as plt
@@ -7,7 +8,10 @@ import matplotlib.pyplot as plt
 # Ease of Movement 
 def EVM(data, ndays):
     dm = ((data['high'] + data['low']) / 2) - ((data['high'].shift(1) + data['low'].shift(1)) / 2)
-    br = (data['volume'] / 100000000) / ((data['high'] - data['low']))
+    br = (data['volume'] / 100000000) / (data['high'] - data['low'])
+    print('br before handle:\n', br)
+    br[br == np.inf] = 1
+    print('br after handle:\n', br)
     EVM = dm / br
     EVM_MA = pd.Series(EVM.rolling(ndays).mean(), name='EVM')
     # EVM_MA = pd.Series(pd.rolling_mean(EVM, ndays), name = 'EVM')
@@ -20,6 +24,8 @@ def get_evm(stock_code, ndays):
     merged_data = EVM(stock_data, ndays)
     return merged_data['EVM']
 
+
+get_evm('000002.XSHE', 14)
 
 # XSHE000002_data = st.get_csv_data('000002.XSHE', 'price')
 #
